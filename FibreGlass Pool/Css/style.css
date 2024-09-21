@@ -1004,6 +1004,12 @@ line-height: 15px;
 .mobile_naner{
     display: none;
 }
+.slider_m{
+        display: flex;
+    flex-wrap: wrap;
+    width: max-content;
+    gap: 111px;
+}
 @media (max-width: 1024px) {
 .sec_7_text p{
     padding-top: 15px;
