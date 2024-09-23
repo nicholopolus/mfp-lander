@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  mfplb:
+    image: registry.solarcompare.com/mfp/prod-lbal:latest
+    expose:
+      - "80"
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.port=80"
+      - "traefik.enable=true"
+      - traefik.http.middlewares.mfpnginx-redirect-web-secure.redirectscheme.scheme=https
+      - traefik.http.routers.mfpnginx-web.middlewares=nginx_prod-redirect-web-secure
+      - traefik.http.routers.mfpnginx-web.rule=Host(`mfp.tekchimp.com`)
+      - traefik.http.routers.mfpnginx-web.entrypoints=web
+      - "traefik.http.routers.mfplander.rule=Host(`mfp.tekchimp.com`)"
+      - traefik.http.routers.mfplander.tls=true
+      - traefik.http.routers.mfplander.tls.certresolver=myresolver
+    networks:
+      - traefik
+    depends_on:
+      - mfpfpm
+    volumes:
+      - www-data:/var/www/html
+
+  mfpfpm:
+    image: registry.solarcompare.com/mfp/prod-lander:latest
+    networks:
+      - traefik
+    volumes:
+      - www-data:/var/www/html
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+  www-data:

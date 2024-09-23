@@ -1,3 +1,6 @@
+<?php
+parse_str($_SERVER['QUERY_STRING'], $queryStr);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiber Glass Pools </title>
- 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -24,10 +27,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css"
         integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <script>
+        const addMaximumScaleToMetaViewport = () => {
+            const el = document.querySelector('meta[name=viewport]');
+
+            if (el !== null) {
+                let content = el.getAttribute('content');
+                let re = /maximum\-scale=[0-9\.]+/g;
+
+                if (re.test(content)) {
+                    content = content.replace(re, 'maximum-scale=1.0');
+                } else {
+                    content = [content, 'maximum-scale=1.0'].join(', ')
+                }
+
+                el.setAttribute('content', content);
+            }
+        };
+
+        const disableIosTextFieldZoom = addMaximumScaleToMetaViewport;
+
+        // https://stackoverflow.com/questions/9038625/detect-if-device-is-ios/9039885#9039885
+        const checkIsIOS = () =>
+            /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (checkIsIOS()) {
+            disableIosTextFieldZoom();
+        }
+    </script>
     <div class="top_h">
         <div class="container">
             <h1>AUTUMN CLEARANCE SALE: Save up to $4,000!</h1>
@@ -41,12 +72,16 @@
                     <img src="images/mob.png" alt="Logo">
                 </div>
                 <button class="menu-icon"><img src="images/menu.png" alt=""></button>
-                <button class="menu-icon close_button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#07032D" class="m_svg"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
+                <button class="menu-icon close_button"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                        viewBox="0 -960 960 960" width="24px" fill="#07032D" class="m_svg">
+                        <path
+                            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg></button>
 
             </div>
             <ul>
                 <li><a href="#Benefits"> Benefits</a></li>
-                <li><a  href="#Features"> Features</a></li>
+                <li><a href="#Features"> Features</a></li>
                 <li><a href="#reviews">Reviews</a></li>
                 <li><a href="#faqs"> FAQs</a></li>
                 <li class="d_no_m">
@@ -54,12 +89,15 @@
                         <img src="images/logo.png" alt="Logo">
                     </div>
                 </li>
-                    <li class="bt_m">
-                  <button class="qt_bt_mobile">Request a Quote</button>
-              </li>
+                <li class="bt_m">
+                    <a href="#mfp--form">
+                        <button class="qt_bt_mobile">Request a Quote</button>
+                    </a>
+                </li>
             </ul>
-
-            <button class="request-quote mob_hidden">Request a Quote</button>
+            <a href="#mfp--form">
+                <button class="request-quote mob_hidden">Request a Quote</button>
+            </a>
         </header>
     </div>
     <div class="top_bar_2 mar">
@@ -84,7 +122,7 @@
         <div class="container">
             <section class="sec1">
                 <div class="mobile_naner">
-                        <img src="images/mobile_banner.png">
+                    <img src="images/mobile_banner.png">
                 </div>
                 <div class="rating">
                     <img src="images/Stars.png" alt="">
@@ -109,9 +147,11 @@
                         <p><span> Call The Experts</span> - we’ve been doing this for more than 30 years</p>
                     </div>
                     <div class="sec_1_button">
-                        <button class="arrow-button">
-                            Get My Free Quote Now <i class="fa-solid fa-arrow-right arrow"></i>
-                        </button>
+                        <a href="#mfp--form">
+                            <button class="arrow-button">
+                                Get My Free Quote Now <i class="fa-solid fa-arrow-right arrow"></i>
+                            </button>
+                        </a>
                     </div>
                     <div class="sec_1_white_box">
                         <div class="white_box">
@@ -136,11 +176,11 @@
             <div class="sec_2">
                 <p>As Seen On</p>
                 <div class="slider_m">
-                <img src="images/image 11.png" alt="">
-                <img src="images/image 12.png" alt="">
-                <img src="images/image 13.png" alt="">
-                <img src="images/image 14.png" alt="">
-            </div>
+                    <img src="images/image 11.png" alt="">
+                    <img src="images/image 12.png" alt="">
+                    <img src="images/image 13.png" alt="">
+                    <img src="images/image 14.png" alt="">
+                </div>
             </div>
         </div>
     </section>
@@ -236,9 +276,11 @@
                         builder in Queensland in 2021, 2023 & 2024. We also hold multiple gold and silver awards to
                         complete the picture.</p>
                     <div class="sec_1_button">
-                        <button class="arrow-button">
-                            Get My Free Quote Now <i class="fa-solid fa-arrow-right arrow"></i>
-                        </button>
+                        <a href="#mfp--form">
+                            <button class="arrow-button">
+                                Get My Free Quote Now <i class="fa-solid fa-arrow-right arrow"></i>
+                            </button>
+                        </a>
                     </div>
                     <div class="white_box">
                         <img src="images/Stars.png" alt="">
@@ -252,11 +294,11 @@
                     </div>
                 </div>
                 <div class="sec_5_right">
-                 <img src="images/r1.png" alt="">
-                 <img src="images/r3.png" alt="">
+                    <img src="images/r1.png" alt="">
+                    <img src="images/r3.png" alt="">
 
-                 <img src="images/r2.png" alt="">
-                 <img src="images/r4.png" alt="" class="img_sp">
+                    <img src="images/r2.png" alt="">
+                    <img src="images/r4.png" alt="" class="img_sp">
                 </div>
             </div>
         </div>
@@ -383,9 +425,11 @@
                             <img src="images/tool 1.png" alt="">
                         </div>
                         <div class="sec_7_box_t">
-                        <h1>Pool installation</h1>
-                        <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud.</p></div>
+                            <h1>Pool installation</h1>
+                            <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam,
+                                quis nostrud.</p>
+                        </div>
                     </div>
                     <div class="sec_7_box">
                         <div class="circle_img">
@@ -393,9 +437,11 @@
                         </div>
                         <div class="sec_7_box_t">
 
-                        <h1>30+ year of experience</h1>
-                        <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud.</p></div>
+                            <h1>30+ year of experience</h1>
+                            <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam,
+                                quis nostrud.</p>
+                        </div>
                     </div>
                     <div class="sec_7_box">
                         <div class="circle_img">
@@ -403,9 +449,11 @@
                         </div>
                         <div class="sec_7_box_t">
 
-                        <h1>30+ year of experience</h1>
-                        <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud.</p></div>
+                            <h1>30+ year of experience</h1>
+                            <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam,
+                                quis nostrud.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="sec_7_btm">
@@ -414,15 +462,16 @@
                         <p>Rated <span class="white_span">4.6</span> | Brisbane’s Most Trusted</p>
                     </div>
                     <div class="sec_1_button">
-                    <button class="arrow-button">
-                        Get My Free Quote Now <i class="fa-solid fa-arrow-right arrow"></i>
-                    </button>
-                </div>
+                        <a href="#mfp--form">
+                            <button class="arrow-button">
+                                Get My Free Quote Now <i class="fa-solid fa-arrow-right arrow"></i>
+                            </button>
+                        </a>
+                    </div>
                 </div>
                 <p class="sec_7_btm_p">Or, you can call us on <span class="white_span">1300-30-60-11</span> - we’re here
                     to help</p>
             </div>
-        </div>
         </div>
     </section>
     <section class="slider_s" id="reviews">
@@ -433,74 +482,74 @@
                     <p>Over 160 5-star Google reviews and counting</p>
                 </div>
                 <div class="new">
-                <div class="owl-carousel ">
+                    <div class="owl-carousel ">
 
-                    <div class="slider_sec_full_box">
-                        <div class="pool_back">
-                            <img src="images/pool.png" class="r_img" alt="">
-                       
-                        <div class="slider_sec_white_box">
+                        <div class="slider_sec_full_box">
+                            <div class="pool_back">
+                                <img src="images/pool.png" class="r_img" alt="">
 
-                            <img src="images/Stars.png" alt="">
-                            <h1>100% Recommended Service</h1>
-                            <p>We had a positive experience with MFPeasy for the supply and installation of our
-                                pool.
-                                They were easy to deal with, on time, within budget, and provided constant
-                                communication
-                                throughout each stage of the installation. </p>
-                            <div class="verfy">
-                                <img src="images/verified 1.png" alt="">
-                                <span>Yolande Wilson</span>
-                                <img src="images/google.png" class="google">
+                                <div class="slider_sec_white_box">
+
+                                    <img src="images/Stars.png" alt="">
+                                    <h1>100% Recommended Service</h1>
+                                    <p>We had a positive experience with MFPeasy for the supply and installation of our
+                                        pool.
+                                        They were easy to deal with, on time, within budget, and provided constant
+                                        communication
+                                        throughout each stage of the installation. </p>
+                                    <div class="verfy">
+                                        <img src="images/verified 1.png" alt="">
+                                        <span>Yolande Wilson</span>
+                                        <img src="images/google.png" class="google">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    <div class="slider_sec_full_box">
-                        <div class="pool_back">
-                            <img src="images/pool.png" class="r_img" alt="">
-                       
-                        <div class="slider_sec_white_box">
+                        <div class="slider_sec_full_box">
+                            <div class="pool_back">
+                                <img src="images/pool.png" class="r_img" alt="">
 
-                            <img src="images/Stars.png" alt="">
-                            <h1>100% Recommended Service</h1>
-                            <p>We had a positive experience with MFPeasy for the supply and installation of our
-                                pool.
-                                They were easy to deal with, on time, within budget, and provided constant
-                                communication
-                                throughout each stage of the installation. </p>
-                            <div class="verfy">
-                                <img src="images/verified 1.png" alt="">
-                                <span>Yolande Wilson</span>
-                                <img src="images/google.png" class="google">
+                                <div class="slider_sec_white_box">
+
+                                    <img src="images/Stars.png" alt="">
+                                    <h1>100% Recommended Service</h1>
+                                    <p>We had a positive experience with MFPeasy for the supply and installation of our
+                                        pool.
+                                        They were easy to deal with, on time, within budget, and provided constant
+                                        communication
+                                        throughout each stage of the installation. </p>
+                                    <div class="verfy">
+                                        <img src="images/verified 1.png" alt="">
+                                        <span>Yolande Wilson</span>
+                                        <img src="images/google.png" class="google">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    <div class="slider_sec_full_box">
-                        <div class="pool_back">
-                            <img src="images/pool.png" class="r_img" alt="">
-                       
-                        <div class="slider_sec_white_box">
+                        <div class="slider_sec_full_box">
+                            <div class="pool_back">
+                                <img src="images/pool.png" class="r_img" alt="">
 
-                            <img src="images/Stars.png" alt="">
-                            <h1>100% Recommended Service</h1>
-                            <p>We had a positive experience with MFPeasy for the supply and installation of our
-                                pool.
-                                They were easy to deal with, on time, within budget, and provided constant
-                                communication
-                                throughout each stage of the installation. </p>
-                            <div class="verfy">
-                                <img src="images/verified 1.png" alt="">
-                                <span>Yolande Wilson</span>
-                                <img src="images/google.png" class="google">
+                                <div class="slider_sec_white_box">
+
+                                    <img src="images/Stars.png" alt="">
+                                    <h1>100% Recommended Service</h1>
+                                    <p>We had a positive experience with MFPeasy for the supply and installation of our
+                                        pool.
+                                        They were easy to deal with, on time, within budget, and provided constant
+                                        communication
+                                        throughout each stage of the installation. </p>
+                                    <div class="verfy">
+                                        <img src="images/verified 1.png" alt="">
+                                        <span>Yolande Wilson</span>
+                                        <img src="images/google.png" class="google">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                   
 
-                </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -523,12 +572,15 @@
                         </div>
                         <h4 class="a">
                             Fibreglass pools offer a long list of positives over their concrete and vinyl counterparts.
-                            For example, a fibreglass swimming pool is generally:
-
-                            Cheaper to purchase, install, maintain and heat
-                            Faster to install
-                            Less prone to algae
-                            A better option than salt water pools
+                            For example, a <a
+                                href="https://myfibreglasspooleasy.com.au/blog/fibreglass-swimming-pools-a-reality-in-every-australian-home/">fibreglass
+                                swimming pool </a>is generally:
+                            <ul class="mfp--list">
+                                <li>Cheaper to purchase, install, maintain and heat</li>
+                                <li>Faster to install</li>
+                                <li>Less prone to algae</li>
+                                <li>A better option than salt water pools</li>
+                            </ul>
 
                             The material you choose for your new swimming pool is an important decision. Take a look at
                             our Fibreglass vs Concrete Pools page for a more detailed comparison.
@@ -540,17 +592,11 @@
                             <h1 class="toggle-btn">+</h1>
                         </div>
                         <h4 class="a">
-
-                            Fibreglass pools offer a long list of positives over their concrete and vinyl counterparts.
-                            For example, a fibreglass swimming pool is generally:
-
-                            Cheaper to purchase, install, maintain and heat
-                            Faster to install
-                            Less prone to algae
-                            A better option than salt water pools
-
-                            The material you choose for your new swimming pool is an important decision. Take a look at
-                            our Fibreglass vs Concrete Pools page for a more detailed comparison.
+                            Yes we do this all of the time, it is known as a sleeper pool. We install before the house
+                            is built, then generally
+                            return to fit the filtration and do the paving and fencing towards the end of your house
+                            build so that everything is
+                            ready for when you move in.
                         </h4>
                     </div>
                     <div class="que">
@@ -558,16 +604,11 @@
                             <h3 class="q">How long will I have to wait until pool installation can start?</h3>
                             <h1 class="toggle-btn">+</h1>
                         </div>
-                        <h4 class="a">Fibreglass pools offer a long list of positives over their concrete and vinyl
-                            counterparts. For example, a fibreglass swimming pool is generally:
-
-                            Cheaper to purchase, install, maintain and heat
-                            Faster to install
-                            Less prone to algae
-                            A better option than salt water pools
-
-                            The material you choose for your new swimming pool is an important decision. Take a look at
-                            our Fibreglass vs Concrete Pools page for a more detailed comparison.</h4>
+                        <h4 class="a">
+                            You might be surprised to know that a typical lead time for pool installation with MFP Easy
+                            is just 4 weeks! Often, we
+                            can find ways to reduce this to just 2 – 3 weeks.
+                        </h4>
                     </div>
                     <div class="que">
                         <div class="q-container">
@@ -575,17 +616,19 @@
                             <h1 class="toggle-btn">+</h1>
                         </div>
                         <h4 class="a">
+                            Pool installation is faster with a fibreglass pool. The hole is excavated, levelling and
+                            sand basing is implemented, and
+                            soon the pool can be craned directly into the hole. Filling of pool water can begin
+                            immediately, while pool filtration,
+                            wiring and fitting of lighting, and backfilling of the pool walls takes place.
+                            <br />
 
-                            Fibreglass pools offer a long list of positives over their concrete and vinyl counterparts.
-                            For example, a fibreglass swimming pool is generally:
-
-                            Cheaper to purchase, install, maintain and heat
-                            Faster to install
-                            Less prone to algae
-                            A better option than salt water pools
-
-                            The material you choose for your new swimming pool is an important decision. Take a look at
-                            our Fibreglass vs Concrete Pools page for a more detailed comparison.
+                            In only a few days, the pool is ready for a cooling plunge. A concrete beam is poured to
+                            seal the soil around the
+                            fibreglass pool edges, which also gives a solid base for pavers and poolside tables and
+                            seating. Paving and landscaping
+                            is next and you now have a perfect setting for a pool BBQ, poolside party, or drift about on
+                            an airbed.
                         </h4>
                     </div>
                     <div class="que">
@@ -594,17 +637,15 @@
                             <h1 class="toggle-btn">+</h1>
                         </div>
                         <h4 class="a">
-
-                            Fibreglass pools offer a long list of positives over their concrete and vinyl counterparts.
-                            For example, a fibreglass swimming pool is generally:
-
-                            Cheaper to purchase, install, maintain and heat
-                            Faster to install
-                            Less prone to algae
-                            A better option than salt water pools
-
-                            The material you choose for your new swimming pool is an important decision. Take a look at
-                            our Fibreglass vs Concrete Pools page for a more detailed comparison.
+                            Ideally, our team of pool installers will need a 3m opening to make the process easy. That
+                            said, we can often work with
+                            as little as just 1.4m.
+                            <br />
+                            If you’re considering a fibreglass pool installation and have limited space, the best thing
+                            to do is chat to our
+                            friendly team on 1300 30 60 11 and they can help determine if the space is viable. In most
+                            cases, we can find some kind
+                            of solution.
                         </h4>
                     </div>
                     <div class="que">
@@ -613,23 +654,21 @@
                             <h1 class="toggle-btn">+</h1>
                         </div>
                         <h4 class="a">
-
-                            Fibreglass pools offer a long list of positives over their concrete and vinyl counterparts.
-                            For example, a fibreglass swimming pool is generally:
-
-                            Cheaper to purchase, install, maintain and heat
-                            Faster to install
-                            Less prone to algae
-                            A better option than salt water pools
-
-                            The material you choose for your new swimming pool is an important decision. Take a look at
-                            our Fibreglass vs Concrete Pools page for a more detailed comparison.
+                            Yes! We have great finance options available through Handypay. This finance is available on
+                            all of our fibreglass pools,
+                            including any limited time specials that may be on offer.
+                            <br />
+                            Take a look at our Pool Finance page for more information.
+                            <br />
+                            We also have a strong relationship with Joe Pitari from Money Quest. Joe has organized
+                            finance for quite a few of our
+                            customers and often sets customers up with a better home loan deal in the process.
                         </h4>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+
     </section>
     <section class="lasts">
         <div class="container">
@@ -661,8 +700,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="last_s_right">
+                <div class="last_s_right" id="mfp--form">
                     <div class="foam">
+                        <form class="demo-form">
+                            <?php
+                                foreach ($queryStr as $key => $value) {
+                                    echo "<input type='hidden' name='$key' value='$value' required>";
+                                }
+                            ?>
                         <h1>Get Instant Pricing for <span class="span1"> Your Dream Pool</span></h1>
                         <div class="name_input">
                             <div class="name_ali">
@@ -687,6 +732,7 @@
                                 <p>Your information is safe & secure with us</p>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
